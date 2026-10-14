@@ -137,7 +137,7 @@ s.ci,s.co,s.due{display:inline-block;width:6px;height:6px;border-radius:50%;text
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;z-index:40;display:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
-.back{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-weight:600;color:var(--pri-d);text-decoration:none;white-space:nowrap}
+.back{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-weight:600;color:var(--pri-d);text-decoration:none;white-space:nowrap}
 .back:hover{border-color:var(--pri);background:var(--pri-bg)}
 
 </style>
@@ -226,7 +226,7 @@ function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';cle
 function setLang(l){lang=l;try{localStorage.setItem(LKEY,l)}catch(e){}applyLang()}
 function applyLang(){
  document.documentElement.lang=lang;
- $('back').textContent='← '+(lang==='vi'?'Màn hình bắt đầu':'Start screen');$('sub').textContent=tr('sub');$('n-bk').textContent=tr('navBk');$('n-pay').textContent=tr('navPay');
+ $('back').innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>';$('back').title=lang==='vi'?'Màn hình bắt đầu':'Start screen';$('back').setAttribute('aria-label',$('back').title);$('sub').textContent=tr('sub');$('n-bk').textContent=tr('navBk');$('n-pay').textContent=tr('navPay');
  $('l-vi').classList.toggle('on',lang==='vi');$('l-en').classList.toggle('on',lang==='en');
  $('foot').innerHTML=`<b>${co().name}</b><span>${tr('fAddrL')}: ${co().addr}</span><span>${tr('fTelL')}: ${CO.tel}</span><span>${tr('fFaxL')}: ${CO.fax}</span>`;
  render()}
