@@ -275,7 +275,7 @@ const redrawRooms=()=>{$('rooms').innerHTML=roomsHtml()};
 function addRoom(){fr.push(newRoom(fr[fr.length-1]));redrawRooms()}
 function rmRoom(i){fr.splice(i,1);redrawRooms()}
 function edit(id,asParty){
- const b=S.find(x=>x.id===id)||{bd:today(),hotel:'',addr:'',tel:'',code:'KT-'+today().slice(2).replace(/-/g,'')+'-'+String(S.length+1).padStart(3,'0'),guest:'',ci:'',ciT:'14:00',co:'',coT:'12:00',bed:'Double',adults:2,kids:0,rooms:1,type:'',rate:'',due:'',dep:'',note:'',vat:true,bf:true,pol:tr('pol'),party:false,rl:null};
+ const b=S.find(x=>x.id===id)||{bd:today(),hotel:'',addr:'',tel:'',code:'KT-'+today().slice(2).replace(/-/g,'')+'-'+String(S.length+1).padStart(3,'0'),guest:'',ci:'',ciT:'14:00',co:'',coT:'12:00',bed:'Double',adults:2,kids:0,rooms:1,type:'',rate:'',due:'',dep:'',note:lang==='vi'?'Quý khách vui lòng mang theo giấy tờ tùy thân (CCCD/Hộ chiếu) khi nhận phòng.':'Please bring your ID (national ID card/passport) when checking in.',vat:true,bf:true,pol:tr('pol'),party:false,rl:null};
  fParty=!!(b.party||asParty);
  fr=fParty?(b.party&&b.rl?b.rl.map(r=>({type:r.type,bed:r.bed,rate:r.rate,ci:r.ci,ciT:r.ciT,co:r.co,coT:r.coT,guests:[...r.guests,'','',''].slice(0,3)})):[newRoom()]):[];
  const dates=fParty?'':`${fld(tr('fCi'),'f_ci',b.ci,'date')}${fld(tr('fCiT'),'f_ciT',b.ciT,'time')}${fld(tr('fCo'),'f_co',b.co,'date')}${fld(tr('fCoT'),'f_coT',b.coT,'time')}`;
