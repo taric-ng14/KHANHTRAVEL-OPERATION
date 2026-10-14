@@ -81,6 +81,7 @@ table.t{width:100%;border-collapse:collapse;min-width:820px}
 .t tr:hover td{background:var(--pri-bg)}
 .t .num{text-align:right;white-space:nowrap}
 .t small{color:var(--muted);display:block}
+.t td>b{display:inline-block;min-width:150px}
 .act{display:flex;gap:6px;flex-wrap:wrap}
 .tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
 .tag.un{background:var(--red-bg);color:var(--red-d)}.tag.pa{background:var(--warn-bg);color:var(--warn)}.tag.ok{background:var(--good-bg);color:var(--good)}
@@ -316,7 +317,7 @@ function warns(t){
 
 /* ---------- cấu hình các bảng dữ liệu ---------- */
 const O=a=>a.map(x=>({v:x,l:x}));
-const pill=m=>v=>`<span class="tag ${m[v]||'gr'}">${esc(v)}</span>`;
+const pill=m=>{const f=v=>`<span class="tag ${m[v]||'gr'}">${esc(v)}</span>`;f.pill=1;return f};
 const SEC={};
 SEC.staff={arr:'staff',one:'nhân sự',add:'+ Thêm nhân sự',hint:'Lưu danh tính, điện thoại, vai trò, ngày tham gia và nhiệm vụ của từng người để truy xuất lịch sử điều hành theo mã đoàn.',def:()=>({st:'Chưa phân công'}),
  cols:[{k:'role',l:'Vai trò',t:'s',o:()=>ROLES,req:1,list:1},{k:'name',l:'Họ tên',t:'t',req:1,list:1},{k:'tel',l:'Điện thoại',t:'t',list:1,ph:'Giữ số 0 đầu, ví dụ 0908123456'},{k:'from',l:'Ngày tham gia',t:'d',list:1},{k:'to',l:'Đến ngày',t:'d',list:1},{k:'task',l:'Nhiệm vụ',t:'a',list:1},{k:'st',l:'Trạng thái phân công',t:'s',o:()=>ASSIGN,req:1,list:1,html:pill({'Đã xác nhận':'dn','Đã phân công':'nu','Chưa phân công':'un'})}],
@@ -385,7 +386,7 @@ SEC.ext={arr:'ext',one:'khoản phát sinh',add:'+ Ghi nhận phát sinh',def:t=
 
 /* ---------- engine bảng ---------- */
 function cellHtml(c,r,t){
- if(c.html)return c.html(r,t);
+ if(c.html)return c.html.pill?c.html(r[c.k]):c.html(r,t);
  let v=c.c?c.c(r,t):r[c.k];
  if(c.c)return esc(v);
  if(c.t==='m')return vnd(v);if(c.t==='p')return v===''||v==null?'':num(v)+'%';if(c.t==='d')return dmy(v);if(c.t==='dt')return fdt(v);if(c.t==='b')return v?'✓':'';
